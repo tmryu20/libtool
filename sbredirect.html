@@ -1,0 +1,28 @@
+<html>
+<head>
+<META HTTP-equiv="Content-TYPE" CONTENT="text/html; charset=utf-8"> 
+
+<script  src="https://trtr2.myqnapcloud.com:8081/js/ecl.js"></script>
+</head>
+<body>
+redirecting...
+
+<form name="SearchForm" action="https://www.lib-shibuya.tokyo.jp/winj/opac/search-standard.do?lang=ja" method="post"><input name="txt_word" type="hidden" value=""><input name="submit_btn_searchEasy" type="hidden" value="検索"><input name="hid_word_column" type="hidden" value="fulltext"><input name="txt_dummy" style="display:none;" type="hidden"></form>
+
+
+
+</body>
+<script>
+
+var curURL = document.URL;
+if(curURL.match(/search=[^\r&]+/)){
+  var s = curURL.match( /\?search=([^\r&]+)/ );
+  /* var u =UnescapeUTF8(s[1]); */
+  var u =decodeURI(s[1]);
+  //alert(u);
+  document.SearchForm.txt_word.value=(u);
+  document.SearchForm.submit();
+}
+</script>
+
+</html>
