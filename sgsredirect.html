@@ -1,0 +1,19 @@
+<html>
+<head>
+<script  src="https://trtr2.myqnapcloud.com:8081/js/ecl.js"></script>
+<script>
+
+var curURL = document.URL;
+if(curURL.match(/search=[^\r&]+/)){
+  var s = curURL.match( /\?search=([^\r&]+)/ );
+  var q =EscapeSJIS(UnescapeUTF8(s[1]));
+  var u="https://libweb.city.setagaya.tokyo.jp/cgi-bin/search?BOOK=ON&ITEM1=AB&COMP1=3&ITEM2=CD&COMP2=3&ITEM3=CD&KEY3=&COMP3=3&COND=2&SORT=5&NDC0=&NDC1=&NDC=&ISBN=&LANG=&BINUM=&MATER=+&CHILD=+&MAXVIEW=200";
+  
+  location.href = u+"&KEY1="+q+"&KEY2="+q;
+  	}
+</script>
+</head>
+<body>
+redirecting...
+</body>
+</html>
