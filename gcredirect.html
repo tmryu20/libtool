@@ -7,13 +7,11 @@
   var curURL = document.URL;
 
   // location.href = "http://kakaku.com/search_results/" + u + "/";
-  let today = new Date();
-  let mday = today.getDate();
-  let day_num = today.getDay();
-  today.setDate(today.getDate()- day_num + 8);
+  let ddd = new Date();
+  let day_num = ddd.getDay();
+  ddd.setDate(ddd.getDate()- day_num + 8);
 
-  alert(today.getDate());
-  
+  location.href = "https://calendar.google.com/calendar/r/week/" + ddd.getYear() + "/" + ddd.getMonth() + "/" + ddd.getDate()   ;
 </script>
 </head>
 <body>
