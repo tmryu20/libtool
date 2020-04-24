@@ -11,7 +11,7 @@
   let day_num = ddd.getDay();
   ddd.setDate(ddd.getDate()- day_num + 8);
 
-  location.href = "https://calendar.google.com/calendar/r/week/" + ddd.getYear() + "/" + ddd.getMonth() + "/" + ddd.getDate()   ;
+  location.href = "https://calendar.google.com/calendar/r/week/" + ddd.getFullYear() + "/" + (ddd.getMonth() +1)+ "/" + ddd.getDate()   ;
 </script>
 </head>
 <body>
