@@ -4,12 +4,19 @@
 <script  src="/js/ecl.js"></script>
 <script>
 
-var curURL = document.URL;
-if(curURL.match(/search=[^\r&]+/)){
-  var s = curURL.match( /\?search=([^\r&]+)/ );
-  var u =EscapeSJIS(UnescapeUTF8(s[1]));
-  location.href = "http://kakaku.com/search_results/" + u + "/";
-}
+  var curURL = document.URL;
+
+  // location.href = "http://kakaku.com/search_results/" + u + "/";
+  let today = new Date();
+  let this_year = today.getFullYear();
+  let this_month = today.getMonth();
+  let date = today.getDate();
+  let day_num = today.getDay();
+  let next_monday = date - day_num + 8;
+
+  docuemnt.write(next_monday);
+  
+  
 </script>
 </head>
 <body>
