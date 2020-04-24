@@ -10,12 +10,11 @@
   let today = new Date();
   let this_year = today.getFullYear();
   let this_month = today.getMonth();
-  let date = today.getDate();
+  let mday = today.getDate();
   let day_num = today.getDay();
   let next_monday = date - day_num + 8;
 
-  docuemnt.write(next_monday);
-  
+  alert(next_monday);
   
 </script>
 </head>
