@@ -7,9 +7,9 @@
 
 
 	var curURL = document.URL;
-	var url, fmt;
+	var fmt;
 	if(curURL.match(/url=[^\r&]+/)){
-		url = curURL.match( /url=([^\r&]+)/ );
+		var url = curURL.match( /url=([^\r&]+)/ );
 		var url2 = decodeURIComponent (url[1]);
 		alert(url2);
 
