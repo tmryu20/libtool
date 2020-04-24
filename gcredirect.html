@@ -1,0 +1,18 @@
+  
+<html>
+<head>
+<script  src="/js/ecl.js"></script>
+<script>
+
+var curURL = document.URL;
+if(curURL.match(/search=[^\r&]+/)){
+  var s = curURL.match( /\?search=([^\r&]+)/ );
+  var u =EscapeSJIS(UnescapeUTF8(s[1]));
+  location.href = "http://kakaku.com/search_results/" + u + "/";
+}
+</script>
+</head>
+<body>
+redirecting...
+</body>
+</html>
