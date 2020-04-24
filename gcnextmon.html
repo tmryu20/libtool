@@ -1,16 +1,10 @@
   
 <html>
 <head>
-<script  src="/js/ecl.js"></script>
 <script>
-
-  var curURL = document.URL;
-
-  // location.href = "http://kakaku.com/search_results/" + u + "/";
   let ddd = new Date();
   let day_num = ddd.getDay();
   ddd.setDate(ddd.getDate()- day_num + 8);
-
   location.href = "https://calendar.google.com/calendar/r/week/" + ddd.getFullYear() + "/" + (ddd.getMonth() +1)+ "/" + ddd.getDate()   ;
 </script>
 </head>
