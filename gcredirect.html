@@ -8,13 +8,11 @@
 
   // location.href = "http://kakaku.com/search_results/" + u + "/";
   let today = new Date();
-  let this_year = today.getFullYear();
-  let this_month = today.getMonth();
   let mday = today.getDate();
   let day_num = today.getDay();
-  let next_monday = date - day_num + 8;
+  today.setDate(today.getDate()- day_num + 8);
 
-  alert(next_monday);
+  alert(today.getDate());
   
 </script>
 </head>
