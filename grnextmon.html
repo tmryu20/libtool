@@ -1,0 +1,30 @@
+  
+<html>
+<head>
+<script>
+
+	let ddd = new Date();
+	let day_num = ddd.getDay();
+	ddd.setDate(ddd.getDate()- day_num + 8);
+
+
+	var curURL = document.URL;
+	var url, fmt;
+	if(curURL.match(/url=[^\r&]+/)){
+		url = curURL.match( /url=([^\r&]+)/ );
+		url = decodeURI(url);
+
+		// if(curURL.match(/fmt=[^\r&]+/)){
+		//	fmt = curURL.match( /fmt=([^\r&]+)/ );
+		//
+		// }
+
+	}
+	location.href = url + ddd.getFullYear() + "-" + (ddd.getMonth() +1)+ "-" + ddd.getDate() ;
+
+</script>
+</head>
+<body>
+redirecting...
+</body>
+</html>
