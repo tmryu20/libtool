@@ -10,8 +10,8 @@
 	var url, fmt;
 	if(curURL.match(/url=[^\r&]+/)){
 		url = curURL.match( /url=([^\r&]+)/ );
-		var url2 = decodeURI(url);
-		alert(url2);
+		var url = decodeURIComponent (url[1]);
+		alert(url);
 
 		// if(curURL.match(/fmt=[^\r&]+/)){
 		//	fmt = curURL.match( /fmt=([^\r&]+)/ );
