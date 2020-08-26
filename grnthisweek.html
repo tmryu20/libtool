@@ -1,0 +1,29 @@
+<html><head>
+<script>
+
+	let ddd = new Date();
+	let day_num = ddd.getDay();
+	ddd.setDate(ddd.getDate()- day_num + 1);
+
+
+	var curURL = document.URL;
+	var fmt;
+	if(curURL.match(/url=[^\r&]+/)){
+		var url = curURL.match( /url=([^\r&]+)/ );
+		var url2 = decodeURIComponent (url[1]);
+		// alert(url2);
+
+		// if(curURL.match(/fmt=[^\r&]+/)){
+		//	fmt = curURL.match( /fmt=([^\r&]+)/ );
+		//
+		// }
+
+	}
+	location.href = url2 + ddd.getFullYear() + "-" + (ddd.getMonth() +1)+ "-" + ddd.getDate() ;
+
+</script>
+</head>
+<body>
+redirecting...
+</body>
+</html>
