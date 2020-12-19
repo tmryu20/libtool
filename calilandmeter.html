@@ -2,7 +2,13 @@
 <head>
 <script  src="/js/ecl.js"></script>
 <script>
-
+function sleep(waitMsec) {
+  var startMsec = new Date();
+ 
+  // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
+  while (new Date() - startMsec < waitMsec);
+}
+  
 var curURL = document.URL;
 if(curURL.match(/search=[^\r&]+/)){
   var s = curURL.match( /\?search=([^\r&]+)/ );
@@ -10,7 +16,8 @@ if(curURL.match(/search=[^\r&]+/)){
   var u1="https://bookmeter.com/search?keyword=";
   var u2="https://calil.jp/search?q=";
   window.open(u2+q);
-  location.href=u1+q;
+  window.open(u1+q);
+  // location.href=u1+q;
 }
 </script>
 </head>
