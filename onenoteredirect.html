@@ -1,1 +1,19 @@
+<html><head>
+<script>
 
+	var curURL = document.URL;
+	var fmt;
+	if(curURL.match(/url=[^\r&]+/)){
+		var url = curURL.match( /url=([^\r&]+)/ );
+		var url2 = decodeURIComponent (url[1]);
+
+	}
+	
+	location.href = url2 + ;
+
+</script>
+</head>
+<body>
+redirecting...
+</body>
+</html>
