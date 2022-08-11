@@ -3,6 +3,6 @@
   <form name="fm">
     <textarea name="inptext" width=120 height=10></textarea><br>
     <textarea name="enctext" width=120 height=10></textarea><br>
-    <input type=button value="encode" onclick="fm.enctext='https://tmryu.netlify.app/on.html?url='&encodeURIComponent(fm.inptext)">
+    <input type=button value="encode" onclick="document.fm.enctext.value='https://tmryu.netlify.app/on.html?url=' + encodeURIComponent(document.fm.inptext.value)">
   </form>
 </html>
