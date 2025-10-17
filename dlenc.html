@@ -75,8 +75,9 @@
       <form name="fm">
         <textarea name="inptext" cols="80" rows="5" placeholder="ここにURLを入力..."></textarea><br>
         <textarea name="enctext" cols="80" rows="5" readonly placeholder="エンコードされたURLがここに表示されます"></textarea><br>
-        <input type="button" value="Encode" onclick="document.fm.enctext.value='https://tmryu.netlify.app/on.html?url=' + encodeURIComponent(document.fm.inptext.value)">
+        <input type="button" value="Encode" onclick="generateLink()">
       </form>
+      <div id="result-link-container" style="margin-top: 10px;"></div>
     </div>
 
     <div class="container" style="margin-top: 20px;">
@@ -90,36 +91,55 @@
         <li><code>ms-excel:ofe|u|</code></li>
         <li><code>ms-powerpoint:ofe|u|</code></li>
         <li>Teams：<code>msteams: URL</code></li>
-        <li>slack: <a href="https://kkc-jo53099.slack.com/archives/C09HWLDRFMZ">https://kkc-jo53099.slack.com/archives/C09HWLDRFMZ</a></li>
       </ul>
 
       <h2>✅ box → ローカルアプリ起動</h2>
       <ul>
         <li>BOX でデスクトップアプリを開く</li>
         <li>Develperモードで、コンソールログで、<code>ms-</code> を検索</li>
-        <li><a href="https://tmryu.netlify.app/dlenc.html">ディープリンクリダイレクト生成</a> に貼り付ける</li>
       </ul>
 
       <h2>✅ Onedrive</h2>
       <ul>
         <li>共有から🔗をコピー</li>
         <li><code>ms-excel・・・</code>の後に結合する</li>
-        <li>例）<a href="https://tmryu.netlify.app/on.html?url=ms-excel%3Aofe%7Cu%7Chttps%3A%2F%2Fcoreprice.sharepoint.com%2F%3Ax%3A%2Fr%2Fsites%2Fcom105-%2FShared%2520Documents%2Fwr_%25E6%25A5%25AD%25E5%258B%2599%25E5%25A0%25B1%25E5%2591%258A%2F%25E9%2580%25B1%25E6%25AC%25A1%25E5%25A0%25B1%25E5%2591%258A%2F%25E4%25BE%25A1%25E6%25A0%25BC.com_PL.xlsx%3Fd%3Dwe131e9fff4894e64a38166b889de5278%26csf%3D1%26web%3D1%26e%3DPsB5It%26nav%3DMTVfezk1NjlDNUM5LTJGQkItNDNENi05QTVELTI3OTBDQjZBNjE1RH0">PL 経営会議資料</a></li>
       </ul>
 
       <h2>✅ box</h2>
       <ul>
         <li>デバッグコンソールで<code>ms-excel</code>を探す</li>
-        <li>例）<a href="ms-excel:ofe|u|https://api.box.com/wopi/files/1835498335040%7Cd%7CTP_BOX_2%7Ce%7C24568522102%7Cn%7C29%E6%9C%9F%E4%BA%88%E5%AE%9F%E7%AE%A1%E7%90%86_%E4%BE%A1%E6%A0%BC.com%E4%BA%8B%E6%A5%AD%E4%BC%81%E7%94%BB%E9%83%A8.xlsx%7Ca%7CWeb">予実管理シート</a></li>
       </ul>
 
       <h2>✅ エクスプローラーで開く</h2>
       <ul>
         <li><code>file-explorer:</code></li>
-        <li>例）<a href="https://tmryu.netlify.app/on.html?url=file-explorer%3AC%3A%5CUsers%5Cryu_tomoaki%5COneDrive%20-%20Kakaku.com%2C%20Inc%5C10_%E5%AF%BE%E5%BF%9C%E5%B1%A5%E6%AD%B4%5C">対応履歴</a></li>
-        <li><a href="https://tmryu.netlify.app/on.html?url=file-explorer%3AC%3A%5CUsers%5Cryu_tomoaki%5CKakaku.com%2C%20Inc%5C%E4%BE%21%E6%A0%BC.com%E3%82%AB%E3%83%B3%E3%83%91%E3%83%8B%E3%83%BC(29%E6%9C%9F)%20-%20wc_%E3%82%AB%E3%83%B3%E3%83%91%E3%83%8B%E3%83%BCMTG%20-%20wc_%E3%82%AB%E3%83%B3%E3%83%91%E3%83%8B%E3%83%BCMTG%C2%A5">カンパニーMTG</a></li>
-        <li><a href="https://tmryu.netlify.app/on.html?url=file-explorer%3AC%3A%5CUsers%5Cryu_tomoaki%5CDownloads">ダウンロード</a></li>
       </ul>
     </div>
+    <script>
+      function generateLink() {
+        const inputText = document.fm.inptext.value;
+        const enctext = document.fm.enctext;
+        const linkContainer = document.getElementById('result-link-container');
+
+        if (inputText.trim() === '') {
+          enctext.value = '';
+          linkContainer.innerHTML = '';
+          return;
+        }
+
+        const encodedUrl = 'https://tmryu.netlify.app/on.html?url=' + encodeURIComponent(inputText);
+        enctext.value = encodedUrl;
+
+        linkContainer.innerHTML = ''; // Clear previous link
+
+        const link = document.createElement('a');
+        link.href = encodedUrl;
+        link.textContent = '生成されたリンクをテスト';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+
+        linkContainer.appendChild(link);
+      }
+    </script>
   </body>
 </html>
