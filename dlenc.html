@@ -1,170 +1,208 @@
 <html>
-  <!-- 日本語はどうなるの -->
-  <head>
-    <title>Deep Link Encoder</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        line-height: 1.6;
-        padding: 20px;
-        max-width: 800px;
-        margin: 0 auto;
-        background-color: #f9f9f9;
-        color: #333;
-      }
-      .container {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-      h1, h2 {
-        border-bottom: 2px solid #eee;
-        padding-bottom: 10px;
-      }
-      h1 {
-        color: #333;
-      }
-      h2 {
-        color: #555;
-      }
-      textarea {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border-radius: 4px;
-        border: 1px solid #ddd;
-        box-sizing: border-box;
-      }
-      input[type="button"] {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-      }
-      input[type="button"]:hover {
-        background-color: #0056b3;
-      }
-      .prefix-btn {
-        background-color: #6c757d;
-        color: white;
-        padding: 5px 10px;
-        margin-right: 5px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-      }
-      .prefix-btn:hover {
-        background-color: #5a6268;
-      }
-      ul {
-        list-style-type: disc;
-        padding-left: 20px;
-      }
-      li {
-        margin-bottom: 8px;
-      }
-      a {
-        color: #007bff;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      code {
-        background-color: #eee;
-        padding: 2px 4px;
-        border-radius: 4px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Deep Link Encoder</h1>
-      <form name="fm">
-        <textarea name="inptext" cols="80" rows="5" placeholder="ここにURLを入力..."></textarea>
-        <div id="prefix-buttons" style="margin-top: 5px; margin-bottom: 10px;">
-          <input type="button" class="prefix-btn" value="Excel" onclick="setPrefix('ms-excel:ofe|u|')">
-          <input type="button" class="prefix-btn" value="PowerPoint" onclick="setPrefix('ms-powerpoint:ofe|u|')">
-          <input type="button" class="prefix-btn" value="Teams" onclick="setPrefix('msteams:')">
-          <input type="button" class="prefix-btn" value="Explorer" onclick="setPrefix('file-explorer:')">
-        </div>
-        <textarea name="enctext" cols="80" rows="5" readonly placeholder="エンコードされたURLがここに表示されます"></textarea><br>
-        <input type="button" value="Encode" onclick="generateLink()">
-      </form>
-      <div id="result-link-container" style="margin-top: 10px;"></div>
-    </div>
+<!-- 日本語はどうなるの -->
 
-    <div class="container" style="margin-top: 20px;">
-      <h2>✅ DLENC</h2>
-      <ul>
-        <li><a href="https://tmryu.netlify.app/dlenc.html">ディープリンクリダイレクト生成</a></li>
-      </ul>
+<head>
+  <title>Deep Link Encoder</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #f9f9f9;
+      color: #333;
+    }
 
-      <h2>✅ MSデスクトップアプリ起動</h2>
-      <ul>
-        <li><code>ms-excel:ofe|u|</code></li>
-        <li><code>ms-powerpoint:ofe|u|</code></li>
-        <li>Teams：<code>msteams: URL</code></li>
-      </ul>
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-      <h2>✅ box → ローカルアプリ起動</h2>
-      <ul>
-        <li>BOX でデスクトップアプリを開く</li>
-        <li>Develperモードで、コンソールログで、<code>ms-</code> を検索</li>
-      </ul>
+    h1,
+    h2 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
 
-      <h2>✅ Onedrive</h2>
-      <ul>
-        <li>共有から🔗をコピー</li>
-        <li><code>ms-excel・・・</code>の後に結合する</li>
-      </ul>
+    h1 {
+      color: #333;
+    }
 
-      <h2>✅ box</h2>
-      <ul>
-        <li>デバッグコンソールで<code>ms-excel</code>を探す</li>
-      </ul>
+    h2 {
+      color: #555;
+    }
 
-      <h2>✅ エクスプローラーで開く</h2>
-      <ul>
-        <li><code>file-explorer:</code></li>
-      </ul>
-    </div>
-    <script>
-      function setPrefix(prefix) {
-        const inptext = document.fm.inptext;
-        inptext.value = prefix;
-        inptext.focus();
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    input[type="button"] {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="button"]:hover {
+      background-color: #0056b3;
+    }
+
+    .prefix-btn {
+      background-color: #6c757d;
+      color: white;
+      padding: 5px 10px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .prefix-btn:hover {
+      background-color: #5a6268;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      background-color: #eee;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Deep Link Encoder</h1>
+    <form name="fm">
+      <textarea name="inptext" cols="80" rows="5" placeholder="ここにURLを入力..."></textarea>
+      <div id="prefix-buttons" style="margin-top: 5px; margin-bottom: 10px;">
+        <input type="button" class="prefix-btn" value="Excel" onclick="setPrefix('ms-excel:ofe|u|')">
+        <input type="button" class="prefix-btn" value="PowerPoint" onclick="setPrefix('ms-powerpoint:ofe|u|')">
+        <input type="button" class="prefix-btn" value="Teams" onclick="setPrefix('msteams:')">
+        <input type="button" class="prefix-btn" value="Explorer" onclick="setPrefix('file-explorer:')">
+        <input type="button" class="prefix-btn" value="Antigravity" onclick="setAntigravity()">
+      </div>
+      <textarea name="enctext" cols="80" rows="5" readonly placeholder="エンコードされたURLがここに表示されます"></textarea><br>
+      <input type="button" value="Encode" onclick="generateLink()">
+    </form>
+    <div id="result-link-container" style="margin-top: 10px;"></div>
+  </div>
+
+  <div class="container" style="margin-top: 20px;">
+    <h2>✅ DLENC</h2>
+    <ul>
+      <li><a href="https://tmryu.netlify.app/dlenc.html">ディープリンクリダイレクト生成</a></li>
+    </ul>
+
+    <h2>✅ MSデスクトップアプリ起動</h2>
+    <ul>
+      <li><code>ms-excel:ofe|u|</code></li>
+      <li><code>ms-powerpoint:ofe|u|</code></li>
+      <li>Teams：<code>msteams: URL</code></li>
+    </ul>
+
+    <h2>✅ box → ローカルアプリ起動</h2>
+    <ul>
+      <li>BOX でデスクトップアプリを開く</li>
+      <li>Develperモードで、コンソールログで、<code>ms-</code> を検索</li>
+    </ul>
+
+    <h2>✅ Onedrive</h2>
+    <ul>
+      <li>共有から🔗をコピー</li>
+      <li><code>ms-excel・・・</code>の後に結合する</li>
+    </ul>
+
+    <h2>✅ box</h2>
+    <ul>
+      <li>デバッグコンソールで<code>ms-excel</code>を探す</li>
+    </ul>
+
+    <h2>✅ エクスプローラーで開く</h2>
+    <ul>
+      <li><code>file-explorer:</code></li>
+    </ul>
+
+    <h2>✅ Antigravity</h2>
+    <ul>
+      <li><code>antigravity://file:/ローカルパス</code></li>
+    </ul>
+  </div>
+  <script>
+    function setPrefix(prefix) {
+      const inptext = document.fm.inptext;
+      inptext.value = prefix;
+      inptext.focus();
+    }
+
+    function setAntigravity() {
+      const inptext = document.fm.inptext;
+      let path = inptext.value.trim();
+      if (path === '') {
+        inptext.value = 'antigravity://file:/';
+      } else {
+        path = path.replace(/\\/g, '/');
+        // Encode the path to handle spaces and special characters
+        const encodedPath = encodeURI(path);
+        inptext.value = 'antigravity://file:/' + encodedPath;
+      }
+      inptext.focus();
+    }
+
+    function generateLink() {
+      const inputText = document.fm.inptext.value;
+      const enctext = document.fm.enctext;
+      const linkContainer = document.getElementById('result-link-container');
+
+      if (inputText.trim() === '') {
+        enctext.value = '';
+        linkContainer.innerHTML = '';
+        return;
       }
 
-      function generateLink() {
-        const inputText = document.fm.inptext.value;
-        const enctext = document.fm.enctext;
-        const linkContainer = document.getElementById('result-link-container');
+      const encodedUrl = 'https://tmryu.netlify.app/on.html?url=' + encodeURIComponent(inputText);
+      enctext.value = encodedUrl;
 
-        if (inputText.trim() === '') {
-          enctext.value = '';
-          linkContainer.innerHTML = '';
-          return;
-        }
+      linkContainer.innerHTML = ''; // Clear previous link
 
-        const encodedUrl = 'https://tmryu.netlify.app/on.html?url=' + encodeURIComponent(inputText);
-        enctext.value = encodedUrl;
+      const link = document.createElement('a');
+      link.href = encodedUrl;
+      link.textContent = '生成されたリンクをテスト';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
 
-        linkContainer.innerHTML = ''; // Clear previous link
+      linkContainer.appendChild(link);
+    }
+  </script>
+</body>
 
-        const link = document.createElement('a');
-        link.href = encodedUrl;
-        link.textContent = '生成されたリンクをテスト';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-
-        linkContainer.appendChild(link);
-      }
-    </script>
-  </body>
 </html>
