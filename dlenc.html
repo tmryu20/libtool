@@ -166,7 +166,24 @@
   <script>
     function setPrefix(prefix) {
       const inptext = document.fm.inptext;
-      inptext.value = prefix + inptext.value;
+      let val = inptext.value;
+      const prefixes = [
+        'ms-excel:ofe|u|',
+        'ms-powerpoint:ofe|u|',
+        'msteams:',
+        'file-explorer:',
+        'antigravity://file:/',
+        'cursor://file:/'
+      ];
+
+      for (const p of prefixes) {
+        if (val.startsWith(p)) {
+          val = val.substring(p.length);
+          break;
+        }
+      }
+
+      inptext.value = prefix + val;
       inptext.focus();
     }
 
