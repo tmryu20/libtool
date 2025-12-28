@@ -103,7 +103,7 @@
   <div class="container">
     <h1>Deep Link Encoder</h1>
     <form name="fm">
-      <textarea name="inptext" cols="80" rows="5" placeholder="ここにURLを入力..."></textarea>
+      <textarea name="inptext" cols="80" rows="5" placeholder="URL または Windows パスを入力"></textarea>
       <div id="prefix-buttons" style="margin-top: 5px; margin-bottom: 10px;">
         <input type="button" class="prefix-btn" value="Excel" onclick="setPrefix('ms-excel:ofe|u|')">
         <input type="button" class="prefix-btn" value="PowerPoint" onclick="setPrefix('ms-powerpoint:ofe|u|')">
@@ -154,7 +154,7 @@
 
     <h2>✅ Antigravity</h2>
     <ul>
-      <li><code>antigravity://file:/ローカルパス</code></li>
+      <li><code>antigravity://file/ローカルパス</code></li>
     </ul>
   </div>
   <script>
@@ -168,12 +168,12 @@
       const inptext = document.fm.inptext;
       let path = inptext.value.trim();
       if (path === '') {
-        inptext.value = 'antigravity://file:/';
+        inptext.value = 'antigravity://file/';
       } else {
         path = path.replace(/\\/g, '/');
         // Encode the path to handle spaces and special characters
         const encodedPath = encodeURI(path);
-        inptext.value = 'antigravity://file:/' + encodedPath;
+        inptext.value = 'antigravity://file/' + encodedPath;
       }
       inptext.focus();
     }
