@@ -238,6 +238,10 @@
       const encodedUrl = 'https://tmryu.netlify.app/on.html?url=' + encodeURIComponent(inputText);
       enctext.value = encodedUrl;
 
+      // Copy to clipboard
+      enctext.select();
+      document.execCommand('copy');
+
       linkContainer.innerHTML = ''; // Clear previous link
 
       const link = document.createElement('a');
