@@ -190,15 +190,36 @@
     function setLocalPathProtocol(protocol) {
       const inptext = document.fm.inptext;
       let path = inptext.value.trim();
-      const prefix = protocol + '://file/';
+      const targetPrefix = protocol + '://file/';
+
+      const prefixes = [
+        'ms-excel:ofe|u|',
+        'ms-powerpoint:ofe|u|',
+        'msteams:',
+        'file-explorer:',
+        'antigravity://file/',
+        'cursor://file/'
+      ];
+
+      for (const p of prefixes) {
+        if (path.startsWith(p)) {
+          path = path.substring(p.length);
+          try {
+            path = decodeURI(path);
+          } catch (e) {
+            console.error('Error decoding path:', e);
+          }
+          break;
+        }
+      }
 
       if (path === '') {
-        inptext.value = prefix;
+        inptext.value = targetPrefix;
       } else {
         path = path.replace(/\\/g, '/');
         // Encode the path to handle spaces and special characters
         const encodedPath = encodeURI(path);
-        inptext.value = prefix + encodedPath;
+        inptext.value = targetPrefix + encodedPath;
       }
       inptext.focus();
     }
