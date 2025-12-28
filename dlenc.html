@@ -155,12 +155,12 @@
 
     <h2>✅ Antigravity</h2>
     <ul>
-      <li><code>antigravity://file:/ローカルパス</code></li>
+      <li><code>antigravity://file/ローカルパス</code></li>
     </ul>
 
     <h2>✅ Cursor</h2>
     <ul>
-      <li><code>cursor://file:/ローカルパス</code></li>
+      <li><code>cursor://file/ローカルパス</code></li>
     </ul>
   </div>
   <script>
@@ -172,8 +172,8 @@
         'ms-powerpoint:ofe|u|',
         'msteams:',
         'file-explorer:',
-        'antigravity://file:/',
-        'cursor://file:/'
+        'antigravity://file/',
+        'cursor://file/'
       ];
 
       for (const p of prefixes) {
@@ -190,7 +190,7 @@
     function setLocalPathProtocol(protocol) {
       const inptext = document.fm.inptext;
       let path = inptext.value.trim();
-      const prefix = protocol + '://file:/';
+      const prefix = protocol + '://file/';
 
       if (path === '') {
         inptext.value = prefix;
