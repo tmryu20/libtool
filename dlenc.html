@@ -166,7 +166,7 @@
   <script>
     function setPrefix(prefix) {
       const inptext = document.fm.inptext;
-      inptext.value = prefix;
+      inptext.value = prefix + inptext.value;
       inptext.focus();
     }
 
