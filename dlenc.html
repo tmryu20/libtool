@@ -109,7 +109,8 @@
         <input type="button" class="prefix-btn" value="PowerPoint" onclick="setPrefix('ms-powerpoint:ofe|u|')">
         <input type="button" class="prefix-btn" value="Teams" onclick="setPrefix('msteams:')">
         <input type="button" class="prefix-btn" value="Explorer" onclick="setPrefix('file-explorer:')">
-        <input type="button" class="prefix-btn" value="Antigravity" onclick="setAntigravity()">
+        <input type="button" class="prefix-btn" value="Antigravity" onclick="setLocalPathProtocol('antigravity')">
+        <input type="button" class="prefix-btn" value="Cursor" onclick="setLocalPathProtocol('cursor')">
       </div>
       <textarea name="enctext" cols="80" rows="5" readonly placeholder="エンコードされたURLがここに表示されます"></textarea><br>
       <input type="button" value="Encode" onclick="generateLink()">
@@ -154,7 +155,12 @@
 
     <h2>✅ Antigravity</h2>
     <ul>
-      <li><code>antigravity://file/ローカルパス</code></li>
+      <li><code>antigravity://file:/ローカルパス</code></li>
+    </ul>
+
+    <h2>✅ Cursor</h2>
+    <ul>
+      <li><code>cursor://file:/ローカルパス</code></li>
     </ul>
   </div>
   <script>
@@ -164,16 +170,18 @@
       inptext.focus();
     }
 
-    function setAntigravity() {
+    function setLocalPathProtocol(protocol) {
       const inptext = document.fm.inptext;
       let path = inptext.value.trim();
+      const prefix = protocol + '://file:/';
+
       if (path === '') {
-        inptext.value = 'antigravity://file/';
+        inptext.value = prefix;
       } else {
         path = path.replace(/\\/g, '/');
         // Encode the path to handle spaces and special characters
         const encodedPath = encodeURI(path);
-        inptext.value = 'antigravity://file/' + encodedPath;
+        inptext.value = prefix + encodedPath;
       }
       inptext.focus();
     }
