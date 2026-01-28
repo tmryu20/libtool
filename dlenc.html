@@ -1,7 +1,6 @@
-<html>
-<!-- 日本語はどうなるの -->
 
-<head>
+<!-- saved from url=(0036)https://tmryu.netlify.app/dlenc.html -->
+<html><!-- 日本語はどうなるの --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Deep Link Encoder</title>
   <style>
     body {
@@ -108,12 +107,13 @@
         <input type="button" class="prefix-btn" value="Excel" onclick="setPrefix('ms-excel:ofe|u|')">
         <input type="button" class="prefix-btn" value="PowerPoint" onclick="setPrefix('ms-powerpoint:ofe|u|')">
         <input type="button" class="prefix-btn" value="Teams" onclick="setPrefix('msteams:')">
-        <input type="button" class="prefix-btn" value="Explorer" onclick="setPrefix('file-explorer:')">
         <input type="button" class="prefix-btn" value="Antigravity" onclick="setLocalPathProtocol('antigravity')">
         <input type="button" class="prefix-btn" value="Cursor" onclick="setLocalPathProtocol('cursor')">
+        <input type="button" class="prefix-btn" value="FileExplorer" onclick="setPrefix('file-explorer:')">
       </div>
-      <textarea name="enctext" cols="80" rows="5" readonly placeholder="エンコードされたURLがここに表示されます"></textarea><br>
-      <input type="button" value="Encode & Copy" onclick="generateLink()">
+      <textarea name="enctext" cols="80" rows="5" readonly="" placeholder="エンコードされたURLがここに表示されます"></textarea><br>
+      <input type="button" value="Encode &amp; Copy" onclick="generateLink()">
+      <input type="button" value="Deep Link Copy" onclick="generateDeepLink()">
     </form>
     <div id="result-link-container" style="margin-top: 10px;"></div>
   </div>
@@ -121,7 +121,7 @@
   <div class="container" style="margin-top: 20px;">
     <h2>✅ DLENC</h2>
     <ul>
-      <li><a href="https://tmryu.netlify.app/dlenc.html">ディープリンクリダイレクト生成</a></li>
+      <li><a href="https://tmryu.netlify.app/dlenc">ディープリンクリダイレクト生成</a></li>
     </ul>
 
     <h2>✅ MSデスクトップアプリ起動</h2>
@@ -252,7 +252,49 @@
 
       linkContainer.appendChild(link);
     }
-  </script>
-</body>
 
-</html>
+    function generateDeepLink() {
+      const inputText = document.fm.inptext.value;
+      const enctext = document.fm.enctext;
+      const linkContainer = document.getElementById('result-link-container');
+
+      if (inputText.trim() === '') {
+        enctext.value = '';
+        linkContainer.innerHTML = '';
+        return;
+      }
+
+      // Deep Link mode: Use input text directly as the URL
+      let url = inputText;
+      if (url.startsWith('file-explorer:')) {
+        const prefix = 'file-explorer:';
+        const path = url.substring(prefix.length);
+        url = prefix + encodeURI(path);
+      }
+      enctext.value = url;
+
+      // Copy to clipboard
+      enctext.select();
+      document.execCommand('copy');
+
+      linkContainer.innerHTML = ''; // Clear previous link
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.textContent = '生成されたディープリンクをテスト';
+      
+      // Deep links often don't work well with target="_blank" depending on the protocol,
+      // but keeping it consistent or removing it might be needed. 
+      // For custom protocols, sometimes _self is better or it doesn't matter.
+      // Let's try without target="_blank" for custom protocols to avoid empty tabs if possible,
+      // or keep it if it's standard behavior. 
+      // Safest is to just not force a new tab for protocols that might trigger external apps, 
+      // but usually browsers handle it. Let's keep it simple.
+      // link.target = '_blank'; 
+      
+      linkContainer.appendChild(link);
+    }
+  </script>
+
+
+<div><div style="display: none; position: fixed; top: 30px; width: auto; max-width: 100%; text-align: center; left: 50%; transform: translateX(-50%); z-index: 99999999;"><div style="display: inline-block; font-size: 14px; font-weight: bold; border: 1px solid rgb(240, 195, 109); background-color: rgb(249, 237, 190); padding: 0px 10px; border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;"></div></div></div></body></html>
